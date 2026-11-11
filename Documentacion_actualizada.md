@@ -861,31 +861,31 @@ catch (Exception ex)
 
 
 ## 12.2 Gestión de libros
-![Gestión de libros](AcaBiblioteca\Evidencias)
+![Gestión de libros](./Evidencias/imgLibros.png)
 **Descripción:** registro, edición, eliminación y búsqueda de libros, con listado en `DataGridView`.
 
 ## 12.3 Gestión de autores
-![Gestión de autores](capturas/autores.png)
+![Gestión de autores](./Evidencias/imgAutores.png)
 **Descripción:** CRUD de autores.
 
 ## 12.4 Gestión de editoriales
-![Gestión de editoriales](capturas/editoriales.png)
+![Gestión de editoriales](./Evidencias/imgEditoriales.png)
 **Descripción:** CRUD de editoriales.
 
 ## 12.5 Gestión de usuarios
-![Gestión de usuarios](capturas/usuarios.png)
+![Gestión de usuarios](./Evidencias/imgUsuarios.png)
 **Descripción:** CRUD de usuarios con validación de documento único.
 
 ## 12.6 Préstamos y devoluciones
-![Préstamos](capturas/prestamos.png)
+![Préstamos](./Evidencias/imgPrestamo.png)
 **Descripción:** selección de usuario y libro, fecha de préstamo y fecha de devolución; botones Guardar, Devolver y Eliminar.
 
 ## 12.7 Devolución registrada
-![Devolución](capturas/devoluciones.png)
+![Devolución](./Evidencias/imgDevoluciones.png)
 **Descripción:** préstamo con estado «Devuelto» tras pulsar «Devolver».
 
 ## 12.8 Reportes
-![Reportes](capturas/reportes.png)
+![Reportes](./Evidencias/imgReporte.png)
 **Descripción:** selección del tipo de reporte (préstamos activos, devueltos o inventario) y resultados en el `DataGridView`.
 
 ---
@@ -923,16 +923,16 @@ Se realizan **pruebas funcionales manuales** sobre cada módulo, ejecutando la a
 ## 13.3 Evidencias de pruebas
 
 ### Prueba CP02 – ISBN duplicado
-![Evidencia CP02](capturas/prueba-cp02.png)
-**Resultado:** [Descripción]
+![Evidencia CP02](/Evidencias/imgISBN.png)
+**Resultado:** 
 
 ### Prueba CP09 – Registro de préstamo
-![Evidencia CP09](capturas/prueba-cp09.png)
-**Resultado:** [Descripción]
+![Evidencia CP09](./Evidencias/imgPrestamo.png)
+**Resultado:** 
 
 ### Prueba CP11 – Devolución
-![Evidencia CP11](capturas/prueba-cp11.png)
-**Resultado:** [Descripción]
+![Evidencia CP11](./Evidencias/imgDevoluciones.png)
+**Resultado:** 
 
 ---
 
@@ -966,9 +966,8 @@ Se realizan **pruebas funcionales manuales** sobre cada módulo, ejecutando la a
 
 # 16. REFERENCIAS BIBLIOGRÁFICAS
 
-> Normas APA 7.ª edición. **Deje únicamente las fuentes que realmente consultó.**
+> Normas APA 7.ª edición. 
 
-Date, C. J. (2019). *An introduction to database systems* (8.ª ed.). Pearson.
 
 Microsoft. (s. f.). *Windows Forms documentation*. Microsoft Learn. https://learn.microsoft.com/en-us/dotnet/desktop/winforms/
 
@@ -978,7 +977,6 @@ Microsoft. (s. f.). *ADO.NET overview*. Microsoft Learn. https://learn.microsoft
 
 Microsoft. (s. f.). *C# documentation*. Microsoft Learn. https://learn.microsoft.com/en-us/dotnet/csharp/
 
-Silberschatz, A., Korth, H. F., & Sudarshan, S. (2019). *Fundamentos de bases de datos* (7.ª ed.). McGraw-Hill.
 
 ---
 
@@ -1006,11 +1004,10 @@ Estructura actual del repositorio:
  └── .gitattributes
 ```
 
-Pendiente de agregar al repositorio: carpeta `database/` con el script SQL (Anexo B), carpeta `capturas/` y `README.md`.
 
 ## Anexo B. Script de base de datos
 
-**Archivo:** `database/AcaBiblioteca.sql` *(agregar al repositorio)*
+**Archivo:** `database/AcaBiblioteca.sql` 
 
 ```sql
 -- =====================================================
@@ -1096,34 +1093,4 @@ INSERT INTO Prestamos (IdUsuario, ISBN, FechaPrestamo, FechaDevolucion, Estado) 
 
 UPDATE Libros SET Existencias = Existencias - 1 WHERE ISBN = '978123';
 GO
-```
-
-## Anexo C. Evidencia de Git y GitHub
-
-Insertar capturas que evidencien:
-
-- Creación del repositorio.
-- Commits realizados (frecuentes y descriptivos).
-- Organización del proyecto.
-- Publicación del código.
-- Archivo `README.md`.
-
-## Anexo D. Otras evidencias
-
-Capturas de la aplicación en ejecución y de la base de datos en SSMS (tablas y datos de prueba).
-
----
-
-# LISTA DE VERIFICACIÓN ANTES DE ENTREGAR
-
-- [x] Portada y contraportada con datos reales.
-- [x] Introducción, objetivos, planteamiento, requerimientos y casos de uso.
-- [x] Diagrama de clases, MER y diccionario de datos ajustados al código y al script.
-- [x] Arquitectura, módulos y conexión descritos según el código real.
-- [ ] Capturas de pantalla reales en `capturas/` (sección 12).
-- [ ] Resultados reales de las pruebas: columnas «Resultado obtenido» y «Estado» (sección 13).
-- [ ] Dificultades reales en las conclusiones (sección 14, punto 5).
-- [ ] Script SQL (`database/AcaBiblioteca.sql`) y `README.md` subidos al repositorio.
-- [ ] Capturas de commits de Git y GitHub (Anexo C).
-- [ ] Referencias: dejar solo las fuentes consultadas.
-- [ ] Numeración de páginas al exportar a PDF/Word.
+```Pendiente de agregar al repositorio: carpeta `database/` con el script SQL (Anexo B), carpeta `capturas/` y `README.md`.
