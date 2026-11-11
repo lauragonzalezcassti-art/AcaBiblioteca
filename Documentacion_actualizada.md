@@ -6,22 +6,22 @@
 
 ## PORTADA
 
-**[Coorporacion Unificada de Educacion Superior - CUN]**
+**Corporación Unificada Nacional de Educación Superior (CUN)**
 
-**[Ingenieria de Sistemas / Programacion Avanzada]**
+**Ingeniería de Sistemas / Programación Avanzada**
 
 ### ACA – Programación Avanzada
 
 ### Sistema de Gestión de Biblioteca
 
 **Presentado por:**
-[Laura Lilian Gonzalez Castiblanco]
+Laura Lilian Gonzalez Castiblanco
 
 **Docente:**
-[Veronica Castro Munar]
+Veronica Castro Munar
 
 **Fecha:**
-[Bogota], 5 de noviembre de 2026
+Bogotá, 10 de noviembre de 2026
 
 <div style="page-break-after: always;"></div>
 
@@ -31,11 +31,11 @@
 
 Proyecto desarrollado como evidencia del curso de **Programación Avanzada**, aplicando Programación Orientada a Objetos, base de datos relacional, arquitectura por capas, operaciones CRUD, validaciones, manejo de excepciones y conexión con SQL Server.
 
-**Estudiante(s):** [Laura Lilian Gonzalez Castiblanco]
-**Programa:** [Programacion Avanzada]
-**Grupo:** [Ficha 54465]
-**Docente:** [Veronica Castro Munar]
-**Institución:** [Coorporacion Unificada de Educacion Superior - CUN ]
+**Estudiante(s):** Laura Lilian Gonzalez Castiblanco
+**Programa:** Ingeniería de Sistemas
+**Grupo:** Ficha 54465
+**Docente:** Veronica Castro Munar
+**Institución:** Corporación Unificada Nacional de Educación Superior (CUN)
 **Año:** 2026
 
 <div style="page-break-after: always;"></div>
@@ -69,7 +69,7 @@ Proyecto desarrollado como evidencia del curso de **Programación Avanzada**, ap
 
 El presente documento describe el desarrollo del **Sistema de Gestión de Biblioteca**, una aplicación de escritorio cuyo propósito es facilitar la administración de los procesos de una biblioteca institucional: el registro y control de **libros, autores, editoriales y usuarios**, así como la gestión de **préstamos y devoluciones** y la consulta de información mediante **reportes**.
 
-El sistema fue desarrollado utilizando **C#, Windows Forms y SQL Server**, aplicando los principios de la Programación Orientada a Objetos (clases, objetos, constructores, encapsulamiento, métodos y propiedades) y una **arquitectura por capas** que separa la presentación, la lógica de negocio, el acceso a datos y el almacenamiento.
+El sistema fue desarrollado utilizando **C#, Windows Forms y SQL Server**, aplicando los principios de la Programación Orientada a Objetos (clases, objetos, constructores, encapsulamiento, métodos y propiedades) y una organización por capas: formularios de presentación (Windows Forms), una clase de acceso a datos (`Conexion`) y la base de datos SQL Server. La lógica de negocio y las consultas SQL se ejecutan dentro de cada formulario (ver sección 9).
 
 La aplicación permite:
 
@@ -77,9 +77,9 @@ La aplicación permite:
 - Relacionar cada libro con su autor y su editorial.
 - Registrar préstamos de libros a usuarios y gestionar su devolución.
 - Controlar el estado de cada préstamo (*Prestado* / *Devuelto*) y las existencias de cada libro.
-- Consultar información consolidada mediante un módulo de reportes.
+- Consultar información consolidada mediante un módulo de reportes (préstamos activos, préstamos devueltos e inventario de libros).
 
-Además, el proyecto incluye el diseño y la normalización de la base de datos hasta Tercera Forma Normal (3FN), validaciones de datos, manejo de excepciones, consultas parametrizadas y control de versiones con Git y GitHub.
+Además, el proyecto incluye el diseño y la normalización de la base de datos hasta Tercera Forma Normal (3FN), validaciones de datos en los formularios, manejo de excepciones con `try/catch`, consultas parametrizadas y control de versiones con Git y GitHub.
 
 ---
 
@@ -87,14 +87,14 @@ Además, el proyecto incluye el diseño y la normalización de la base de datos 
 
 ## 2.1 Objetivo general
 
-Desarrollar una aplicación de escritorio para la gestión integral de una biblioteca, utilizando C#, Windows Forms y SQL Server, que permita administrar libros, autores, editoriales y usuarios, gestionar préstamos y devoluciones y generar reportes, aplicando los principios de la Programación Orientada a Objetos, una base de datos relacional y una arquitectura por capas.
+Desarrollar una aplicación de escritorio para la gestión integral de una biblioteca, utilizando C#, Windows Forms y SQL Server, que permita administrar libros, autores, editoriales y usuarios, gestionar préstamos y devoluciones y generar reportes, aplicando los principios de la Programación Orientada a Objetos, una base de datos relacional y una organización por capas.
 
 ## 2.2 Objetivos específicos
 
 - Aplicar los principios de Programación Orientada a Objetos en el diseño de las clases del sistema.
 - Diseñar y normalizar una base de datos relacional (hasta 3FN) y construirla en SQL Server.
 - Implementar operaciones CRUD para libros, autores, editoriales, usuarios y préstamos.
-- Implementar una arquitectura por capas que separe presentación, lógica de negocio y acceso a datos.
+- Centralizar la conexión a la base de datos en una clase de acceso a datos (`Conexion`) y organizar la aplicación en formularios independientes por módulo.
 - Validar la información ingresada por el usuario y manejar excepciones de forma controlada.
 - Implementar formularios en Windows Forms que faciliten el registro, la consulta, la actualización y la eliminación de datos.
 - Implementar consultas y reportes que faciliten la administración de la biblioteca.
@@ -135,14 +135,14 @@ Desde el punto de vista académico, el proyecto integra los contenidos del curso
 El sistema permitirá:
 
 - Presentar un formulario principal con navegación entre módulos.
-- Gestionar libros (CRUD y búsqueda).
+- Gestionar libros (CRUD y búsqueda por ISBN).
 - Gestionar autores (CRUD).
 - Gestionar editoriales (CRUD).
 - Gestionar usuarios (CRUD).
-- Registrar, consultar, editar y eliminar préstamos.
-- Registrar devoluciones y actualizar el estado del préstamo.
+- Registrar, consultar y eliminar préstamos.
+- Registrar devoluciones (botón «Devolver») y actualizar el estado del préstamo y las existencias.
 - Consultar el estado de los préstamos (Prestado / Devuelto).
-- Consultar reportes de la biblioteca.
+- Consultar reportes de la biblioteca (préstamos activos, devueltos e inventario).
 
 ### Fuera del alcance
 
@@ -151,6 +151,8 @@ El sistema permitirá:
 - Reservas de libros y notificaciones por correo electrónico.
 - Un libro con varios autores (en este modelo, cada libro tiene un único autor).
 - Aplicación web o móvil.
+- Clases de entidad, DAO y controladores separados (la lógica está en los formularios).
+- Transacciones SQL en préstamos y devoluciones (propuesto como mejora).
 
 ---
 
@@ -172,13 +174,13 @@ El Sistema de Gestión de Biblioteca permitirá administrar la información rela
 
 | Código | Requerimiento | Descripción |
 |---|---|---|
-| RF01 | Gestión de libros | Registrar, consultar/listar, editar y eliminar libros; buscar por ISBN (código), título o autor; relacionar cada libro con su autor y editorial; consultar existencias. |
+| RF01 | Gestión de libros | Registrar, consultar/listar, editar y eliminar libros; buscar por ISBN; relacionar cada libro con su autor y editorial; consultar existencias. |
 | RF02 | Gestión de autores | Registrar, consultar/listar, editar y eliminar autores (IdAutor, Nombre, Apellido), respetando las restricciones de integridad. |
 | RF03 | Gestión de editoriales | Registrar, consultar/listar, editar y eliminar editoriales (IdEditorial, Nombre), respetando las restricciones de integridad. |
 | RF04 | Gestión de usuarios | Registrar, consultar/listar, editar y eliminar usuarios (IdUsuario, Nombre, Apellido, Documento, Teléfono, Correo). |
-| RF05 | Gestión de préstamos | Registrar préstamos asociando un usuario y un libro; registrar fecha de préstamo; consultar, editar y eliminar préstamos; consultar el estado (Prestado/Devuelto). |
+| RF05 | Gestión de préstamos | Registrar préstamos asociando un usuario y un libro; registrar fecha de préstamo; consultar y eliminar préstamos (al eliminar un préstamo activo se restituye la existencia); consultar el estado (Prestado/Devuelto). |
 | RF06 | Gestión de devoluciones | Registrar la devolución de un préstamo: actualizar fecha de devolución, cambiar el estado a «Devuelto» y actualizar las existencias del libro. |
-| RF07 | Consultas y reportes | Listado de libros, autores y editoriales, usuarios, préstamos registrados, préstamos activos y devueltos, historial de préstamos. |
+| RF07 | Consultas y reportes | Reportes: préstamos activos, préstamos devueltos e inventario de libros (con autor y editorial). Los listados de libros, autores, editoriales, usuarios y préstamos se consultan en cada módulo. |
 | RF08 | Navegación del sistema | Formulario principal con acceso a Inicio, Libros, Usuarios, Autores, Editoriales, Préstamos y Reportes. |
 
 ## 4.4 Requerimientos no funcionales
@@ -186,28 +188,28 @@ El Sistema de Gestión de Biblioteca permitirá administrar la información rela
 | Código | Requerimiento | Descripción |
 |---|---|---|
 | RNF01 | Usabilidad | Interfaz gráfica clara, organizada y fácil de utilizar. |
-| RNF02 | Validación | Validación de campos obligatorios, tipos y longitudes antes de guardar. |
+| RNF02 | Validación | Validación de campos obligatorios y de tipos numéricos (año, existencias) antes de guardar; las demás restricciones las aplica la base de datos. |
 | RNF03 | Mantenibilidad | Código organizado, legible y con nombres descriptivos para clases, métodos, variables y controles. |
-| RNF04 | Arquitectura | Separación de responsabilidades entre presentación, lógica de negocio y acceso a datos. |
+| RNF04 | Arquitectura | Conexión centralizada en la clase `Conexion` y un formulario por módulo. |
 | RNF05 | Manejo de excepciones | Las operaciones deben manejar errores de forma controlada y mostrar mensajes claros. |
 | RNF06 | Integridad de datos | Uso de claves primarias, foráneas y restricciones (UNIQUE, NOT NULL, CHECK) en SQL Server. |
 | RNF07 | Consultas parametrizadas | Todas las consultas a la base de datos deben usar parámetros (previene inyección SQL). |
-| RNF08 | Prevención de duplicados | Evitar registros duplicados donde existan restricciones de unicidad (ISBN, Documento). |
+| RNF08 | Prevención de duplicados | Los duplicados de ISBN (clave primaria) y Documento (`UNIQUE`) son rechazados por SQL Server y el error se muestra al usuario. |
 
 ## 4.5 Reglas de negocio
 
 - **RN01 – ISBN único:** no se permite registrar dos libros con el mismo ISBN (clave primaria).
-- **RN02 – Datos obligatorios:** no se permite almacenar registros con campos obligatorios vacíos o nulos.
+- **RN02 – Datos obligatorios:** los formularios no permiten guardar con campos obligatorios vacíos (incluido el teléfono del usuario).
 - **RN03 – Documento único:** el documento del usuario debe ser único.
 - **RN04 – Un autor por libro:** un libro tiene un solo autor en este modelo.
 - **RN05 – Editorial con muchos libros:** una editorial puede publicar muchos libros.
-- **RN06 – Usuario existente:** no se puede registrar un préstamo para un usuario inexistente.
-- **RN07 – Libro existente:** no se puede registrar un préstamo para un libro inexistente.
+- **RN06 – Usuario existente:** el usuario se elige desde un `ComboBox` cargado de la base de datos y la clave foránea impide préstamos de usuarios inexistentes.
+- **RN07 – Libro existente:** ídem con el libro (`ComboBox` + clave foránea).
 - **RN08 – Disponibilidad:** no se puede prestar un libro si no hay existencias (`Existencias = 0`).
 - **RN09 – Préstamo múltiple:** un usuario puede tener varios préstamos y un libro puede prestarse muchas veces (según existencias).
 - **RN10 – Actualización de existencias:** al registrar un préstamo, las existencias del libro disminuyen en 1; al registrar la devolución, aumentan en 1.
-- **RN11 – Estado coherente:** un préstamo con estado «Devuelto» debe tener `FechaDevolucion`; un préstamo «Prestado» no tiene fecha de devolución.
-- **RN12 – Integridad referencial:** no se pueden eliminar autores, editoriales, usuarios o libros que estén referenciados por otros registros.
+- **RN11 – Estado coherente:** al registrar la devolución se guarda `FechaDevolucion` y el estado pasa a «Devuelto»; un préstamo «Prestado» se crea sin fecha de devolución. La base de datos exige además `FechaDevolucion >= FechaPrestamo` (`CHECK`).
+- **RN12 – Integridad referencial:** SQL Server impide eliminar autores, editoriales, usuarios o libros referenciados por otros registros; la aplicación muestra el mensaje de error de la base de datos.
 
 ---
 
@@ -233,8 +235,6 @@ flowchart LR
     CU06 -.->|incluye| V2([Actualizar existencias])
 ```
 
-> *Si la profesora exige el diagrama en notación UML clásica, puede redibujarse en draw.io / StarUML con estos mismos casos y guardarse como imagen `diagramas/casos-uso.png`.*
-
 ## 5.3 Descripción de casos de uso
 
 ### CU01 – Gestionar libros
@@ -250,15 +250,16 @@ flowchart LR
 **Flujo principal:**
 1. El actor ingresa al módulo de libros.
 2. El sistema muestra los libros registrados en un `DataGridView`.
-3. El actor selecciona la operación (registrar, editar, eliminar o buscar).
+3. El actor selecciona la operación (guardar, editar, eliminar o buscar por ISBN; con doble clic sobre una fila carga los datos en el formulario).
 4. El actor completa o modifica los datos (ISBN, título, autor, editorial, categoría, año, existencias).
 5. El sistema valida los datos y ejecuta la operación.
 6. El sistema muestra un mensaje de confirmación y actualiza el listado.
 
 **Flujos alternativos:**
 - Campos obligatorios vacíos → el sistema muestra un mensaje y no guarda.
-- ISBN duplicado → el sistema informa que el libro ya existe.
-- Libro con préstamos asociados → el sistema impide la eliminación.
+- ISBN duplicado → SQL Server rechaza el registro y el sistema muestra el mensaje de error.
+- Libro con préstamos asociados → la clave foránea impide la eliminación y el sistema muestra el error.
+- Año o existencias no numéricos → el sistema muestra una advertencia.
 
 **Postcondiciones:** el libro queda registrado, actualizado o eliminado en la base de datos.
 
@@ -270,7 +271,7 @@ flowchart LR
 **Descripción:** permite registrar, consultar, actualizar y eliminar autores.
 **Precondiciones:** conexión activa con la base de datos.
 **Flujo principal:** ingresar al módulo → ver listado → diligenciar Nombre y Apellido → guardar/editar/eliminar → el sistema valida y confirma.
-**Flujos alternativos:** campos vacíos; autor con libros asociados (no se puede eliminar).
+**Flujos alternativos:** campos vacíos; autor con libros asociados (la base de datos impide eliminarlo y se muestra el error).
 **Postcondiciones:** el autor queda registrado o actualizado.
 
 ### CU03 – Gestionar editoriales
@@ -279,7 +280,7 @@ flowchart LR
 **Descripción:** permite registrar, consultar, actualizar y eliminar editoriales.
 **Precondiciones:** conexión activa con la base de datos.
 **Flujo principal:** ingresar al módulo → ver listado → diligenciar Nombre → guardar/editar/eliminar → el sistema valida y confirma.
-**Flujos alternativos:** nombre vacío; editorial con libros asociados (no se puede eliminar).
+**Flujos alternativos:** nombre vacío; editorial con libros asociados (la base de datos impide eliminarla y se muestra el error).
 **Postcondiciones:** la editorial queda registrada o actualizada.
 
 ### CU04 – Gestionar usuarios
@@ -288,7 +289,7 @@ flowchart LR
 **Descripción:** permite registrar, consultar, actualizar y eliminar usuarios de la biblioteca.
 **Precondiciones:** conexión activa con la base de datos.
 **Flujo principal:** ingresar al módulo → ver listado → diligenciar Nombre, Apellido, Documento, Teléfono y Correo → guardar/editar/eliminar → el sistema valida y confirma.
-**Flujos alternativos:** documento duplicado; correo con formato inválido; usuario con préstamos asociados (no se puede eliminar).
+**Flujos alternativos:** campos vacíos; documento duplicado (rechazado por la restricción `UNIQUE`); usuario con préstamos asociados (la base de datos impide eliminarlo).
 **Postcondiciones:** el usuario queda registrado o actualizado.
 
 ---
@@ -315,9 +316,8 @@ flowchart LR
 8. El sistema muestra la confirmación y actualiza el listado.
 
 **Flujos alternativos:**
-- Usuario o libro inexistente.
-- Libro sin existencias → no se permite el préstamo.
-- Error de base de datos → se revierte la operación y se muestra el mensaje.
+- Usuario o libro sin seleccionar → advertencia y no se guarda.
+- Libro sin existencias → se muestra «No hay existencias disponibles» y no se registra el préstamo.
 
 **Postcondiciones:** el préstamo queda registrado y las existencias del libro actualizadas.
 
@@ -332,16 +332,17 @@ flowchart LR
 **Precondiciones:** debe existir un préstamo con estado «Prestado».
 
 **Flujo principal:**
-1. El actor selecciona el préstamo activo.
-2. Indica la fecha de devolución.
-3. El sistema valida que la fecha no sea anterior a la fecha del préstamo.
+1. El actor selecciona el préstamo activo en la tabla.
+2. Marca e indica la fecha de devolución (`DateTimePicker`).
+3. Pulsa el botón «Devolver» y confirma.
 4. El sistema actualiza `FechaDevolucion` y cambia el estado a «Devuelto».
 5. El sistema incrementa en 1 las existencias del libro.
 6. El sistema muestra la confirmación.
 
 **Flujos alternativos:**
-- Préstamo ya devuelto → el sistema lo informa y no repite la operación.
-- Fecha de devolución inválida.
+- Préstamo ya devuelto → el sistema muestra «Este préstamo ya fue devuelto» y no repite la operación.
+- Fecha de devolución sin marcar → advertencia.
+- Fecha anterior a la del préstamo → la restricción `CHECK` de la base de datos la rechaza y se muestra el error.
 
 **Postcondiciones:** el préstamo queda en estado «Devuelto» y las existencias actualizadas.
 
@@ -351,7 +352,7 @@ flowchart LR
 
 **Actor principal:** Bibliotecario / Administrador
 **Descripción:** permite consultar información consolidada de la biblioteca.
-**Flujo principal:** ingresar al módulo de reportes → elegir el reporte → el sistema ejecuta la consulta y muestra los resultados.
+**Flujo principal:** ingresar al módulo de reportes → elegir el tipo de reporte (Préstamos activos, Préstamos devueltos o Inventario de libros) → pulsar «Generar» → el sistema ejecuta la consulta y muestra los resultados en un `DataGridView`.
 **Postcondiciones:** la información se muestra en pantalla.
 
 ---
@@ -360,124 +361,114 @@ flowchart LR
 
 ## 6.1 Descripción
 
-El sistema se modela con **clases de entidad** (que representan las tablas de la base de datos), **clases de lógica de negocio** (servicios/controladores) y **clases de acceso a datos** (DAO/repositorios). Cada clase de entidad usa **propiedades** con encapsulamiento y **constructores** para inicializar sus objetos.
+La aplicación se organiza en una clase de acceso a datos (`Conexion`) y en **formularios de Windows Forms** (uno por módulo). Cada formulario es una clase que hereda de `Form`, contiene los eventos de la interfaz y ejecuta directamente las consultas parametrizadas con ADO.NET. En esta versión **no se implementaron clases de entidad, DAO ni controladores**; se proponen como mejora en las recomendaciones.
 
 ## 6.2 Diagrama de clases
 
 ```mermaid
 classDiagram
-    class Autor {
-        +int IdAutor
-        +string Nombre
-        +string Apellido
-        +Autor()
-        +Autor(int, string, string)
-    }
-    class Editorial {
-        +int IdEditorial
-        +string Nombre
-        +Editorial()
-        +Editorial(int, string)
-    }
-    class Libro {
-        +string ISBN
-        +string Titulo
-        +int IdAutor
-        +int IdEditorial
-        +string Categoria
-        +int Anio
-        +int Existencias
-        +Libro()
-        +Libro(string, string, int, int, string, int, int)
-    }
-    class Usuario {
-        +int IdUsuario
-        +string Nombre
-        +string Apellido
-        +string Documento
-        +string Telefono
-        +string Correo
-        +Usuario()
-        +Usuario(int, string, string, string, string, string)
-    }
-    class Prestamo {
-        +int IdPrestamo
-        +int IdUsuario
-        +string ISBN
-        +DateTime FechaPrestamo
-        +DateTime? FechaDevolucion
-        +string Estado
-        +Prestamo()
-    }
+    class Form
     class Conexion {
         -string cadenaConexion
-        +SqlConnection ObtenerConexion()
+        +ObtenerConexion() SqlConnection
     }
-    class LibroDAO {
-        +Insertar(Libro)
-        +Actualizar(Libro)
-        +Eliminar(string)
-        +Listar() List~Libro~
-        +Buscar(string) List~Libro~
-        +ActualizarExistencias(string, int)
+    class FrmPrincipal {
+        -AbrirFormulario(Form)
+        -btnInicio_Click()
+        -btnLibros_Click()
+        -btnUsuarios_Click()
+        -btnAutores_Click()
+        -btnEditoriales_Click()
+        -btnPrestamos_Click()
+        -btnReportes_Click()
+        -btnSalir_Click()
     }
-    class PrestamoDAO {
-        +Insertar(Prestamo)
-        +Actualizar(Prestamo)
-        +Eliminar(int)
-        +Listar() List~Prestamo~
-        +RegistrarDevolucion(int, DateTime)
+    class FrmInicio
+    class FrmAutores {
+        -CargarAutores()
+        -btnGuardar_Click()
+        -btnEditar_Click()
+        -btnEliminar_Click()
     }
-    class LibroController {
-        +Registrar(Libro)
-        +Modificar(Libro)
-        +Eliminar(string)
-        +Listar()
-        +Buscar(string)
+    class FrmEditoriales {
+        -CargarEditoriales()
+        -btnGuardar_Click()
+        -btnEditar_Click()
+        -btnEliminar_Click()
     }
-    class PrestamoController {
-        +RegistrarPrestamo(Prestamo)
-        +RegistrarDevolucion(int, DateTime)
-        +Listar()
+    class FrmLibros {
+        -CargarLibros()
+        -CargarAutores()
+        -CargarEditoriales()
+        -btnBuscar_Click()
+        -btnGuardar_Click()
+        -btnEditar_Click()
+        -btnEliminar_Click()
+    }
+    class FrmUsuarios {
+        -CargarUsuarios()
+        -btnGuardar_Click()
+        -btnEditar_Click()
+        -btnEliminar_Click()
+    }
+    class FrmPrestamos {
+        -CargarPrestamos()
+        -CargarUsuarios()
+        -CargarLibros()
+        -btnGuardar_Click()
+        -btnEditar_Click() Devolver
+        -btnEliminar_Click()
+    }
+    class FrmReportes {
+        -CargarTiposReporte()
+        -btnGenerar_Click()
+        -btnLimpiar_Click()
     }
 
-    Autor "1" --> "N" Libro : escribe
-    Editorial "1" --> "N" Libro : publica
-    Usuario "1" --> "N" Prestamo : realiza
-    Libro "1" --> "N" Prestamo : se presta
-    LibroController ..> LibroDAO
-    PrestamoController ..> PrestamoDAO
-    LibroDAO ..> Conexion
-    PrestamoDAO ..> Conexion
-    LibroController ..> Libro
-    PrestamoController ..> Prestamo
+    Form <|-- FrmPrincipal
+    Form <|-- FrmInicio
+    Form <|-- FrmAutores
+    Form <|-- FrmEditoriales
+    Form <|-- FrmLibros
+    Form <|-- FrmUsuarios
+    Form <|-- FrmPrestamos
+    Form <|-- FrmReportes
+    FrmPrincipal ..> FrmInicio : abre
+    FrmPrincipal ..> FrmLibros : abre
+    FrmPrincipal ..> FrmUsuarios : abre
+    FrmPrincipal ..> FrmAutores : abre
+    FrmPrincipal ..> FrmEditoriales : abre
+    FrmPrincipal ..> FrmPrestamos : abre
+    FrmPrincipal ..> FrmReportes : abre
+    FrmAutores ..> Conexion
+    FrmEditoriales ..> Conexion
+    FrmLibros ..> Conexion
+    FrmUsuarios ..> Conexion
+    FrmPrestamos ..> Conexion
+    FrmReportes ..> Conexion
 ```
-
-> *Se muestran como ejemplo los DAO/Controllers de Libro y Préstamo; el patrón se repite para Autor, Editorial y Usuario. **Ajuste los nombres a los de su proyecto real.***
 
 ## 6.3 Principales clases
 
 | Clase | Responsabilidad |
 |---|---|
-| `Autor` | Representar los datos de un autor (IdAutor, Nombre, Apellido). |
-| `Editorial` | Representar los datos de una editorial (IdEditorial, Nombre). |
-| `Libro` | Representar la información bibliográfica y las existencias de un libro. |
-| `Usuario` | Representar a los usuarios de la biblioteca. |
-| `Prestamo` | Representar un préstamo: usuario, libro, fechas y estado. |
-| `Conexion` | Crear y entregar la conexión a SQL Server. |
-| `*DAO` | Ejecutar las operaciones CRUD y consultas parametrizadas sobre cada tabla. |
-| `*Controller` | Aplicar reglas de negocio y validaciones, y coordinar a la capa de datos. |
-| Formularios (`Frm*`) | Capturar datos, mostrar resultados y mensajes al usuario. |
+| `Conexion` (`Datos/Conexion.cs`) | Crear y entregar la conexión a SQL Server (`SqlConnection`). |
+| `FrmPrincipal` | Formulario contenedor: menú lateral y panel donde se incrustan los demás formularios. |
+| `FrmInicio` | Pantalla de bienvenida. |
+| `FrmAutores` / `FrmEditoriales` / `FrmUsuarios` | CRUD de cada entidad, con validación de campos obligatorios. |
+| `FrmLibros` | CRUD de libros, búsqueda por ISBN y carga de autores/editoriales en `ComboBox`. |
+| `FrmPrestamos` | Registro de préstamos, devolución y eliminación, con actualización de existencias. |
+| `FrmReportes` | Generación de reportes (préstamos activos, devueltos e inventario). |
 
 ## 6.4 Aplicación de POO
 
-- **Clases y objetos:** cada entidad del modelo (Libro, Autor, Editorial, Usuario, Préstamo) se representa con una clase; cada registro cargado se instancia como un objeto.
-- **Constructores:** cada clase de entidad tiene un constructor vacío y uno con parámetros para inicializar sus atributos.
-- **Propiedades y encapsulamiento:** los atributos se exponen mediante propiedades (`get; set;`); los detalles internos (como la cadena de conexión) se declaran `private`.
-- **Métodos:** los DAO y controladores agrupan los métodos de insertar, actualizar, eliminar, listar y buscar.
-- **Colecciones:** los listados se manejan con `List<T>` (por ejemplo, `List<Libro>`), que se enlazan a los `DataGridView` y `ComboBox`.
-- **Organización de responsabilidades:** cada clase tiene una única responsabilidad (entidad, acceso a datos, lógica o interfaz).
-- **Herencia / polimorfismo (opcional):** [Si se implementó, por ejemplo una clase base `EntidadBase` o `BaseDAO<T>`, describirlo aquí. Si no, eliminar este punto.]
+- **Clases y objetos:** cada pantalla es una clase (`partial class` que hereda de `Form`) y se instancia como objeto al navegar (por ejemplo, `new FrmLibros()`).
+- **Herencia:** todos los formularios heredan de `System.Windows.Forms.Form`.
+- **Encapsulamiento:** la cadena de conexión es un campo `private` de `Conexion`, que expone solo `ObtenerConexion()`; los métodos auxiliares de los formularios (`CargarLibros`, `AbrirFormulario`, etc.) son `private`.
+- **Constructores:** cada formulario inicializa sus componentes y carga sus datos en el constructor o en el evento `Load`.
+- **Métodos y eventos:** cada operación (guardar, editar, eliminar, buscar) es un método manejador de eventos.
+- **Reutilización:** `Conexion` se reutiliza en todos los módulos para no repetir la cadena de conexión.
+- **Mejora propuesta:** crear clases de entidad (`Libro`, `Autor`, etc.) con propiedades y constructores, y clases DAO/controladoras para separar la lógica de los formularios.
 
 ---
 
@@ -568,9 +559,6 @@ erDiagram
     }
 ```
 
-> *Pegue aquí también la imagen del MER entregada por la docente o exportada desde su herramienta (draw.io, MySQL Workbench, SSMS):*
-> `![Modelo entidad-relación](imagenes/modelo-entidad-relacion.png)`
-
 ## 7.3 Relaciones y cardinalidad
 
 | Relación | Cardinalidad | Descripción |
@@ -594,7 +582,7 @@ erDiagram
 | NULL | Campo que puede estar vacío |
 | NOT NULL | Campo obligatorio |
 
-> **Base de datos:** `BibliotecaDB` (SQL Server). La columna «Año» se nombra `Anio` en el script SQL para evitar problemas con caracteres especiales.
+> **Base de datos:** `AcaBiblioteca` (SQL Server 2022, instancia `.\SQL2022`). La columna «Año» se nombra `Anio` en el script SQL para evitar problemas con caracteres especiales.
 
 ## 8.2 Tabla: Autores
 
@@ -661,74 +649,64 @@ erDiagram
 
 ## 9.1 Descripción general
 
-El sistema se desarrolla con una **arquitectura por capas**, con el propósito de separar las responsabilidades y facilitar el mantenimiento, la organización y la evolución del código.
+La aplicación sigue una organización en capas **lógicas**, con tres niveles físicos en el código:
 
-1. Capa de Presentación (Windows Forms).
-2. Capa de Lógica de Negocio.
-3. Capa de Acceso a Datos.
-4. Capa de Base de Datos (SQL Server).
+1. **Presentación y lógica de la aplicación:** formularios de Windows Forms (`Frm*.cs`), que capturan datos, validan campos obligatorios y tipos, y ejecutan las operaciones.
+2. **Acceso a datos:** clase `Conexion` (carpeta `Datos/`) y consultas parametrizadas con ADO.NET escritas en cada formulario.
+3. **Base de datos:** SQL Server (`AcaBiblioteca`).
 
-> **Nota:** la arquitectura debe documentarse según la organización **real** del código fuente. Si los componentes no están separados físicamente en proyectos/carpetas distintas, se presenta como una arquitectura lógica propuesta.
+> **Nota:** en esta versión la capa de lógica de negocio no está separada en clases propias; las reglas (existencias, estado del préstamo, validaciones) se aplican en los eventos de los formularios y mediante restricciones de la base de datos. Separarla en controladores y DAO se plantea como mejora (sección 15).
 
 ## 9.2 Diagrama de arquitectura
 
 ```mermaid
 flowchart TD
     U[Usuario: Bibliotecario] --> P
-    subgraph P[Capa de Presentación - Windows Forms]
-        F1[FrmPrincipal]
+    subgraph P[Presentación y lógica - Windows Forms]
+        F1[FrmPrincipal / FrmInicio]
         F2[FrmLibros / FrmAutores / FrmEditoriales]
         F3[FrmUsuarios / FrmPrestamos / FrmReportes]
     end
-    P --> L
-    subgraph L[Capa de Lógica de Negocio]
-        C1[LibroController]
-        C2[AutorController / EditorialController]
-        C3[UsuarioController / PrestamoController]
+    P --> D
+    subgraph D[Acceso a datos]
+        D0[Conexion - ADO.NET]
+        D1[SqlCommand parametrizados en cada formulario]
     end
-    L --> D
-    subgraph D[Capa de Acceso a Datos]
-        D0[Conexion]
-        D1[LibroDAO / AutorDAO / EditorialDAO]
-        D2[UsuarioDAO / PrestamoDAO]
-    end
-    D --> B[(SQL Server - BibliotecaDB)]
+    D --> B[(SQL Server - AcaBiblioteca)]
 ```
 
 ## 9.3 Capa de Presentación
 
-**Responsabilidad:** permite al usuario interactuar con el sistema: captura datos, realiza validación inicial y presenta resultados y mensajes.
+**Responsabilidad:** permite al usuario interactuar con el sistema: captura datos, valida campos obligatorios y numéricos, y presenta resultados y mensajes (`MessageBox`).
 
-**Componentes (formularios):** `FrmPrincipal`, `FrmLibros`, `FrmAutores`, `FrmEditoriales`, `FrmUsuarios`, `FrmPrestamos`, `FrmReportes`.
+**Componentes (formularios):** `FrmPrincipal`, `FrmInicio`, `FrmLibros`, `FrmAutores`, `FrmEditoriales`, `FrmUsuarios`, `FrmPrestamos`, `FrmReportes`.
 
-**Tecnología:** C#, Windows Forms, .NET [versión utilizada, p. ej. .NET Framework 4.8 / .NET 8].
+**Tecnología:** C#, Windows Forms, .NET 10 (`net10.0-windows`), con la librería `FontAwesome.Sharp` para los íconos.
 
-**Controles utilizados:** `Label`, `TextBox`, `ComboBox`, `DataGridView`, `Button`, `GroupBox`, `Panel`, `DateTimePicker`.
+**Controles utilizados:** `Label`, `TextBox`, `ComboBox`, `DataGridView`, `Button`, `Panel`, `DateTimePicker`.
 
-## 9.4 Capa de Lógica de Negocio
+**Navegación:** `FrmPrincipal` tiene un menú lateral y un panel de contenido (`pnlContenido`) donde se incrusta cada formulario como control hijo (`TopLevel = false`).
 
-**Responsabilidad:** procesa las solicitudes de la interfaz, aplica las reglas del sistema, valida operaciones y coordina los procesos de libros, autores, editoriales, usuarios y préstamos.
+## 9.4 Reglas de negocio aplicadas
 
-**Componentes:** `LibroController`, `AutorController`, `EditorialController`, `UsuarioController`, `PrestamoController`.
+Se aplican en los formularios y en la base de datos:
 
-**Ejemplos de reglas aplicadas:**
 - Validar que los campos obligatorios no estén vacíos.
-- Validar la existencia del usuario y del libro.
-- Validar que existan existencias antes de prestar.
-- Actualizar las existencias y el estado en préstamos y devoluciones.
-- Validar la coherencia de las fechas.
+- Validar que año y existencias sean números enteros.
+- Verificar que existan existencias antes de prestar.
+- Descontar una existencia al prestar y sumarla al devolver o al eliminar un préstamo activo.
+- Impedir devolver un préstamo que ya está «Devuelto».
+- Integridad referencial, unicidad (ISBN, Documento) y rangos (`CHECK`) delegados a SQL Server.
 
 ## 9.5 Capa de Acceso a Datos
 
-**Responsabilidad:** gestiona la comunicación entre la aplicación y SQL Server: conexión, consultas parametrizadas y operaciones de inserción, consulta, actualización y eliminación.
+**Responsabilidad:** gestionar la comunicación con SQL Server.
 
-**Componentes:** `Conexion`, `LibroDAO`, `AutorDAO`, `EditorialDAO`, `UsuarioDAO`, `PrestamoDAO`.
-
-**Tecnologías:** SQL Server, ADO.NET (`SqlConnection`, `SqlCommand`, `SqlDataAdapter`/`SqlDataReader`), consultas parametrizadas.
+**Componentes:** clase `Conexion`; `SqlConnection`, `SqlCommand`, `SqlDataAdapter` y `SqlDataReader` de **Microsoft.Data.SqlClient**, con parámetros (`@Nombre`, `@ISBN`, etc.) en todas las consultas de escritura y búsqueda.
 
 ## 9.6 Capa de Base de Datos
 
-**Base de datos:** `BibliotecaDB`
+**Base de datos:** `AcaBiblioteca`
 **Tablas:** `Autores`, `Editoriales`, `Libros`, `Usuarios`, `Prestamos`.
 Incluye claves primarias y foráneas, restricciones `UNIQUE`, `NOT NULL` y `CHECK`.
 
@@ -737,11 +715,9 @@ Incluye claves primarias y foráneas, restricciones `UNIQUE`, `NOT NULL` y `CHEC
 ```text
 Usuario
    ↓
-Presentación (Formularios)
+Formularios (Windows Forms: validación y eventos)
    ↓
-Lógica de Negocio (Controllers)
-   ↓
-Acceso a Datos (DAO / Conexión)
+Conexion + consultas parametrizadas (ADO.NET)
    ↓
 SQL Server
 ```
@@ -755,176 +731,137 @@ Las respuestas de la base de datos realizan el recorrido inverso hasta llegar a 
 ## 10.1 Módulo de inicio (formulario principal)
 
 **Objetivo:** presentar la interfaz principal y facilitar la navegación entre módulos.
-**Funcionalidades:** menú/botones de acceso a Libros, Usuarios, Autores, Editoriales, Préstamos y Reportes.
+**Formularios:** `FrmPrincipal` (menú lateral con botones Inicio, Libros, Usuarios, Autores, Editoriales, Préstamos, Reportes y Salir) y `FrmInicio` (pantalla de bienvenida con el logo).
 
-## 10.2 Módulo de libros
+## 10.2 Módulo de libros (`FrmLibros`)
 
 **Objetivo:** administrar la información bibliográfica y sus relaciones con autores y editoriales.
-**Funcionalidades:** registrar, consultar/listar, editar, eliminar y buscar (por ISBN, título o autor); consultar existencias.
+**Funcionalidades:** guardar, listar, editar, eliminar y buscar por ISBN; doble clic en la tabla para cargar el registro.
 **Validaciones:**
 - ISBN, título, autor, editorial, categoría, año y existencias obligatorios.
-- ISBN único.
-- Año y existencias numéricos; existencias no negativas.
-- Autor y editorial seleccionados desde `ComboBox` (garantizan que existan).
-- No eliminar libros con préstamos asociados.
+- Año y existencias deben ser enteros.
+- Autor y editorial se eligen desde `ComboBox` cargados de la base de datos.
+- ISBN único (clave primaria) y existencias ≥ 0 (`CHECK`): los controla SQL Server y el error se muestra al usuario.
+- Un libro con préstamos asociados no puede eliminarse (clave foránea).
 
-## 10.3 Módulo de autores
+## 10.3 Módulo de autores (`FrmAutores`)
 
 **Objetivo:** administrar los autores de la biblioteca.
-**Funcionalidades:** registrar, consultar, editar y eliminar.
-**Validaciones:** nombre y apellido obligatorios y dentro de la longitud permitida (100); no eliminar autores con libros asociados.
+**Funcionalidades:** guardar, listar, editar y eliminar (con confirmación).
+**Validaciones:** nombre y apellido obligatorios; un autor con libros asociados no puede eliminarse.
 
-## 10.4 Módulo de editoriales
+## 10.4 Módulo de editoriales (`FrmEditoriales`)
 
 **Objetivo:** administrar las editoriales.
-**Funcionalidades:** registrar, consultar, editar y eliminar.
-**Validaciones:** nombre obligatorio (máx. 150); no eliminar editoriales con libros asociados.
+**Funcionalidades:** guardar, listar, editar y eliminar (con confirmación).
+**Validaciones:** nombre obligatorio; una editorial con libros asociados no puede eliminarse.
 
-## 10.5 Módulo de usuarios
+## 10.5 Módulo de usuarios (`FrmUsuarios`)
 
 **Objetivo:** administrar los usuarios de la biblioteca.
-**Funcionalidades:** registrar, consultar, editar y eliminar.
-**Validaciones:** nombre, apellido, documento y correo obligatorios; documento único; formato de correo válido; longitudes según la base de datos; no eliminar usuarios con préstamos.
+**Funcionalidades:** guardar, listar, editar y eliminar (con confirmación).
+**Validaciones:** nombre, apellido, documento, teléfono y correo obligatorios en el formulario; documento único (`UNIQUE` en la base de datos); un usuario con préstamos no puede eliminarse.
 
-## 10.6 Módulo de préstamos
+## 10.6 Módulo de préstamos y devoluciones (`FrmPrestamos`)
 
-**Objetivo:** registrar y controlar los préstamos de libros a usuarios.
-**Funcionalidades:** registrar préstamo (usuario + libro + fecha); consultar préstamos; editar y eliminar según las reglas; consultar estado (Prestado/Devuelto).
-**Validaciones:** usuario y libro existentes; libro con existencias; fechas válidas; estado coherente con la fecha de devolución.
+**Objetivo:** registrar y controlar los préstamos de libros y sus devoluciones.
+**Funcionalidades:**
+- **Guardar:** registra el préstamo con estado «Prestado» y resta una existencia al libro.
+- **Devolver:** registra la fecha de devolución, cambia el estado a «Devuelto» y suma una existencia.
+- **Eliminar:** borra el préstamo; si estaba «Prestado», restituye la existencia.
+- Doble clic en la tabla para cargar el préstamo en el formulario.
 
-## 10.7 Módulo de devoluciones
+**Validaciones:** usuario y libro seleccionados; libro con existencias; el préstamo no puede devolverse dos veces; la fecha de devolución debe estar marcada; la fecha de devolución no puede ser anterior al préstamo (`CHECK` de la base de datos).
 
-**Objetivo:** registrar la devolución de un libro prestado.
-**Funcionalidades:** seleccionar préstamo activo, registrar fecha de devolución, cambiar estado a «Devuelto» y sumar una existencia al libro.
-**Validaciones:** el préstamo debe estar activo; la fecha de devolución no puede ser anterior a la del préstamo.
-**Implementación:** la actualización del préstamo y de las existencias se ejecuta dentro de una **transacción** para mantener la consistencia.
-
-## 10.8 Módulo de reportes
+## 10.7 Módulo de reportes (`FrmReportes`)
 
 **Objetivo:** consultar información consolidada de la biblioteca.
-**Reportes (ajustar a los implementados):**
-- Listado de libros con autor y editorial.
-- Listado de autores y editoriales.
-- Listado de usuarios.
-- Préstamos registrados.
-- Préstamos activos y devueltos.
-- Historial de préstamos por usuario.
+**Reportes implementados:**
+- **Préstamos activos:** préstamos en estado «Prestado», con usuario y libro.
+- **Préstamos devueltos:** con fecha de devolución.
+- **Inventario de libros:** libros con autor, editorial, categoría, año y existencias.
 
 **Ejemplo de consulta (préstamos activos):**
 
 ```sql
 SELECT p.IdPrestamo,
        u.Nombre + ' ' + u.Apellido AS Usuario,
-       l.Titulo, p.FechaPrestamo, p.Estado
+       l.ISBN, l.Titulo, p.FechaPrestamo, p.Estado
 FROM Prestamos p
-INNER JOIN Usuarios u ON u.IdUsuario = p.IdUsuario
-INNER JOIN Libros   l ON l.ISBN      = p.ISBN
-WHERE p.Estado = 'Prestado';
+INNER JOIN Usuarios u ON p.IdUsuario = u.IdUsuario
+INNER JOIN Libros   l ON p.ISBN      = l.ISBN
+WHERE p.Estado = 'Prestado'
+ORDER BY p.FechaPrestamo DESC;
 ```
-
-> **Importante:** documente solo los módulos y reportes que realmente implementó.
 
 ---
 
 # 11. DESCRIPCIÓN DE LA CONEXIÓN CON SQL SERVER
 
-La conexión se gestiona desde la capa de acceso a datos mediante **ADO.NET**, centralizada en la clase `Conexion` para evitar repetir la cadena de conexión.
+La conexión se gestiona con **ADO.NET** (paquete `Microsoft.Data.SqlClient`), centralizada en la clase `Conexion` (`Datos/Conexion.cs`) para no repetir la cadena de conexión. Usa autenticación integrada de Windows (sin usuario ni contraseña en el código).
 
-**Cadena de conexión (ejemplo; ajustar servidor):**
-
-```text
-Server=localhost\SQLEXPRESS;Database=BibliotecaDB;Trusted_Connection=True;TrustServerCertificate=True;
-```
-
-**Clase de conexión (ejemplo):**
+**Clase de conexión (código real del proyecto):**
 
 ```csharp
-using System.Data.SqlClient; // o Microsoft.Data.SqlClient en .NET moderno
+using Microsoft.Data.SqlClient;
 
-public class Conexion
+namespace AcaBiblioteca.Datos
 {
-    private readonly string cadenaConexion =
-        @"Server=localhost\SQLEXPRESS;Database=BibliotecaDB;Trusted_Connection=True;TrustServerCertificate=True;";
-
-    public SqlConnection ObtenerConexion()
+    public class Conexion
     {
-        return new SqlConnection(cadenaConexion);
-    }
-}
-```
+        private string cadenaConexion = "Server=.\\SQL2022;Database=AcaBiblioteca;Integrated Security=true;TrustServerCertificate=true;";
 
-**Ejemplo de consulta parametrizada con manejo de excepciones:**
-
-```csharp
-public bool Insertar(Autor autor)
-{
-    const string sql = "INSERT INTO Autores (Nombre, Apellido) VALUES (@nombre, @apellido)";
-    try
-    {
-        using (var cn = new Conexion().ObtenerConexion())
-        using (var cmd = new SqlCommand(sql, cn))
+        public SqlConnection ObtenerConexion()
         {
-            cmd.Parameters.AddWithValue("@nombre", autor.Nombre);
-            cmd.Parameters.AddWithValue("@apellido", autor.Apellido);
-            cn.Open();
-            return cmd.ExecuteNonQuery() > 0;
+            return new SqlConnection(cadenaConexion);
         }
     }
-    catch (SqlException ex)
-    {
-        throw new Exception("Error al registrar el autor: " + ex.Message);
-    }
 }
 ```
 
-**Ejemplo de devolución con transacción:**
+**Patrón de uso en los formularios (consulta parametrizada con manejo de excepciones), tomado de `FrmAutores`:**
 
 ```csharp
-public void RegistrarDevolucion(int idPrestamo, DateTime fecha)
+try
 {
-    using (var cn = new Conexion().ObtenerConexion())
+    Conexion conexion = new Conexion();
+    using (SqlConnection cn = conexion.ObtenerConexion())
     {
         cn.Open();
-        using (var tx = cn.BeginTransaction())
+        string consulta = @"INSERT INTO Autores (Nombre, Apellido)
+                            VALUES (@Nombre, @Apellido)";
+        using (SqlCommand comando = new SqlCommand(consulta, cn))
         {
-            try
-            {
-                var upd = new SqlCommand(
-                    @"UPDATE Prestamos SET FechaDevolucion=@f, Estado='Devuelto'
-                      WHERE IdPrestamo=@id AND Estado='Prestado'", cn, tx);
-                upd.Parameters.AddWithValue("@f", fecha);
-                upd.Parameters.AddWithValue("@id", idPrestamo);
-                if (upd.ExecuteNonQuery() == 0)
-                    throw new InvalidOperationException("El préstamo no está activo.");
-
-                var stock = new SqlCommand(
-                    @"UPDATE Libros SET Existencias = Existencias + 1
-                      WHERE ISBN = (SELECT ISBN FROM Prestamos WHERE IdPrestamo=@id)", cn, tx);
-                stock.Parameters.AddWithValue("@id", idPrestamo);
-                stock.ExecuteNonQuery();
-
-                tx.Commit();
-            }
-            catch { tx.Rollback(); throw; }
+            comando.Parameters.AddWithValue("@Nombre", txtNombre.Text.Trim());
+            comando.Parameters.AddWithValue("@Apellido", txtApellido.Text.Trim());
+            comando.ExecuteNonQuery();
         }
     }
+    MessageBox.Show("Autor guardado correctamente.", "Biblioteca",
+        MessageBoxButtons.OK, MessageBoxIcon.Information);
+}
+catch (Exception ex)
+{
+    MessageBox.Show("Error al guardar el autor:\n" + ex.Message, "Biblioteca",
+        MessageBoxButtons.OK, MessageBoxIcon.Error);
 }
 ```
 
-> *Los fragmentos son ilustrativos: reemplácelos por el código real de su proyecto.*
+**Registro de un préstamo (`FrmPrestamos`):** primero se consulta `Existencias` del libro; si es mayor que cero se inserta el préstamo con estado `'Prestado'` y luego se ejecuta `UPDATE Libros SET Existencias = Existencias - 1`. La devolución hace el proceso inverso (`UPDATE Prestamos ... Estado = 'Devuelto'` y `Existencias + 1`).
+
+> **Limitación conocida:** estas operaciones usan comandos consecutivos sin `SqlTransaction`. Si fallara el segundo comando, los datos quedarían inconsistentes. Se recomienda envolverlas en una transacción (sección 15).
 
 ---
 
 # 12. CAPTURAS DE PANTALLA DEL SISTEMA
 
-> Inserte una captura por pantalla y explique brevemente lo que muestra. Guarde las imágenes en la carpeta `capturas/`.
+> Imágenes ubicadas en la carpeta `capturas/` del repositorio (ejecutar la aplicación y capturar cada pantalla).
 
 ## 12.1 Menú principal
-![Menú principal](capturas/menu-principal.png)
-**Descripción:** formulario principal con acceso a los módulos del sistema.
+
 
 ## 12.2 Gestión de libros
-![Gestión de libros](capturas/libros.png)
+![Gestión de libros](AcaBiblioteca\Evidencias)
 **Descripción:** registro, edición, eliminación y búsqueda de libros, con listado en `DataGridView`.
 
 ## 12.3 Gestión de autores
@@ -939,17 +876,17 @@ public void RegistrarDevolucion(int idPrestamo, DateTime fecha)
 ![Gestión de usuarios](capturas/usuarios.png)
 **Descripción:** CRUD de usuarios con validación de documento único.
 
-## 12.6 Registro de préstamos
-![Registro de préstamos](capturas/prestamos.png)
-**Descripción:** selección de usuario y libro, fecha de préstamo y estado.
+## 12.6 Préstamos y devoluciones
+![Préstamos](capturas/prestamos.png)
+**Descripción:** selección de usuario y libro, fecha de préstamo y fecha de devolución; botones Guardar, Devolver y Eliminar.
 
-## 12.7 Registro de devoluciones
-![Registro de devoluciones](capturas/devoluciones.png)
-**Descripción:** devolución de un préstamo activo y cambio de estado a «Devuelto».
+## 12.7 Devolución registrada
+![Devolución](capturas/devoluciones.png)
+**Descripción:** préstamo con estado «Devuelto» tras pulsar «Devolver».
 
 ## 12.8 Reportes
 ![Reportes](capturas/reportes.png)
-**Descripción:** consultas consolidadas de la biblioteca.
+**Descripción:** selección del tipo de reporte (préstamos activos, devueltos o inventario) y resultados en el `DataGridView`.
 
 ---
 
@@ -957,7 +894,7 @@ public void RegistrarDevolucion(int idPrestamo, DateTime fecha)
 
 ## 13.1 Estrategia de pruebas
 
-Se realizaron **pruebas funcionales manuales** sobre cada módulo, ejecutando la aplicación con los datos de prueba del script SQL. Para cada caso se verificó el resultado en pantalla y, cuando fue necesario, directamente en SQL Server (consultando las tablas). Se probaron casos válidos y casos de error (campos vacíos, duplicados, sin existencias, restricciones de integridad).
+Se realizan **pruebas funcionales manuales** sobre cada módulo, ejecutando la aplicación con los datos de prueba del script SQL. Para cada caso se verificó el resultado en pantalla y, cuando fue necesario, directamente en SQL Server (consultando las tablas). Se probaron casos válidos y casos de error (campos vacíos, duplicados, sin existencias, restricciones de integridad).
 
 ## 13.2 Casos de prueba
 
@@ -966,20 +903,22 @@ Se realizaron **pruebas funcionales manuales** sobre cada módulo, ejecutando la
 | ID | Funcionalidad | Entrada / Acción | Resultado esperado | Resultado obtenido | Estado |
 |---|---|---|---|---|---|
 | CP01 | Registrar libro | Datos válidos | Libro registrado y visible en el listado | [Completar] | [ ] |
-| CP02 | Registrar libro | ISBN repetido | Mensaje de validación; no se guarda | [Completar] | [ ] |
-| CP03 | Registrar libro | Campo obligatorio vacío | Mensaje de campo obligatorio | [Completar] | [ ] |
+| CP02 | Registrar libro | ISBN repetido | Mensaje de error de la base de datos (clave duplicada); no se guarda | [Completar] | [ ] |
+| CP03 | Registrar libro | Campo obligatorio vacío o año no numérico | «Complete todos los campos…» / «El año debe ser un número entero» | [Completar] | [ ] |
 | CP04 | Registrar autor / editorial | Datos válidos | Registro creado | [Completar] | [ ] |
-| CP05 | Eliminar autor | Autor con libros asociados | Se impide la eliminación (integridad) | [Completar] | [ ] |
+| CP05 | Eliminar autor | Autor con libros asociados | Error de clave foránea; no se elimina | [Completar] | [ ] |
 | CP06 | Registrar usuario | Datos válidos | Usuario registrado | [Completar] | [ ] |
-| CP07 | Registrar usuario | Documento duplicado | Mensaje de documento ya registrado | [Completar] | [ ] |
-| CP08 | Registrar usuario | Correo con formato inválido | Mensaje de validación | [Completar] | [ ] |
+| CP07 | Registrar usuario | Documento duplicado | Error de la restricción `UNIQUE`; no se guarda | [Completar] | [ ] |
+| CP08 | Registrar usuario | Algún campo vacío | «Complete todos los campos antes de guardar» | [Completar] | [ ] |
 | CP09 | Registrar préstamo | Usuario y libro con existencias | Préstamo «Prestado»; existencias −1 | [Completar] | [ ] |
-| CP10 | Registrar préstamo | Libro con `Existencias = 0` | No se permite el préstamo | [Completar] | [ ] |
+| CP10 | Registrar préstamo | Libro con `Existencias = 0` | «No hay existencias disponibles de este libro» | [Completar] | [ ] |
 | CP11 | Registrar devolución | Préstamo activo | Estado «Devuelto», fecha registrada, existencias +1 | [Completar] | [ ] |
-| CP12 | Registrar devolución | Préstamo ya devuelto | Mensaje informativo; no se repite | [Completar] | [ ] |
+| CP12 | Registrar devolución | Préstamo ya devuelto | «Este préstamo ya fue devuelto»; no se repite | [Completar] | [ ] |
 | CP13 | Editar libro | Cambiar categoría/año | Datos actualizados | [Completar] | [ ] |
-| CP14 | Buscar libro | Texto parcial del título | Se listan las coincidencias | [Completar] | [ ] |
-| CP15 | Reporte préstamos activos | Abrir reporte | Se muestran solo préstamos «Prestado» | [Completar] | [ ] |
+| CP14 | Buscar libro | ISBN existente | Los datos del libro se cargan en el formulario | [Completar] | [ ] |
+| CP15 | Reporte préstamos activos | Elegir el reporte y pulsar «Generar» | Se muestran solo préstamos «Prestado» |
+| CP16 | Eliminar préstamo activo | Eliminar préstamo «Prestado» | Préstamo eliminado y existencias +1 |
+| CP17 | Navegación | Botón «Reportes» del menú | Se abre el módulo de reportes | [Completar] | [ ] |
 
 ## 13.3 Evidencias de pruebas
 
@@ -999,22 +938,26 @@ Se realizaron **pruebas funcionales manuales** sobre cada módulo, ejecutando la
 
 # 14. CONCLUSIONES
 
-1. **Logro del proyecto:** se desarrolló una aplicación de escritorio en C# con Windows Forms y SQL Server que permite administrar libros, autores, editoriales y usuarios, y gestionar préstamos, devoluciones y reportes, cumpliendo con el alcance definido.
+1. **Logro del proyecto:** se desarrolló una aplicación de escritorio en C# (.NET 10) con Windows Forms y SQL Server que permite administrar libros, autores, editoriales y usuarios, y gestionar préstamos, devoluciones y reportes, cumpliendo con el alcance definido.
 
-2. **POO:** la aplicación de clases, objetos, constructores, propiedades y encapsulamiento permitió representar las entidades del negocio de forma ordenada y reutilizable, y separar las responsabilidades entre clases de entidad, lógica y acceso a datos.
+2. **POO:** el proyecto aplica clases, objetos, herencia (los formularios heredan de `Form`), encapsulamiento (`Conexion` con cadena privada) y reutilización de código. Como mejora se plantea incorporar clases de entidad y de acceso a datos para reducir la lógica dentro de los formularios.
 
-3. **Base de datos y arquitectura:** la normalización hasta 3FN eliminó la redundancia y las anomalías de inserción, actualización y eliminación, dando origen a cinco tablas relacionadas con integridad referencial. La arquitectura por capas facilitó el mantenimiento y la comprensión del sistema.
+3. **Base de datos y arquitectura:** la normalización hasta 3FN eliminó la redundancia y las anomalías de inserción, actualización y eliminación, dando origen a cinco tablas relacionadas con integridad referencial. La centralización de la conexión en la clase `Conexion` y la separación en un formulario por módulo facilitaron el mantenimiento y la comprensión del sistema.
 
-4. **Validaciones y excepciones:** el uso de validaciones, consultas parametrizadas y manejo de excepciones aumentó la confiabilidad de la aplicación y previno errores de captura e inconsistencias en los datos.
+4. **Validaciones y excepciones:** las validaciones de campos obligatorios y de tipos numéricos, las consultas parametrizadas y el manejo de excepciones con `try/catch` aumentaron la confiabilidad de la aplicación; las restricciones de la base de datos (`UNIQUE`, `CHECK`, claves foráneas) complementan estas validaciones.
 
-5. **Dificultades y soluciones:** [Describa las dificultades reales que tuvo, por ejemplo la conexión a SQL Server, el manejo de claves foráneas al eliminar o la actualización de existencias, y cómo las resolvió.]
+5. **Dificultades y soluciones:** [Describa con sus palabras las dificultades reales que tuvo —por ejemplo, la conexión a la instancia `.\SQL2022`, el manejo de claves foráneas al eliminar o la actualización de existencias en préstamos y devoluciones— y cómo las resolvió.]
 
 ---
 
 # 15. RECOMENDACIONES
 
+- **Arquitectura:** crear clases de entidad (`Libro`, `Autor`, `Editorial`, `Usuario`, `Prestamo`), clases DAO y controladores para sacar la lógica de los formularios.
+- **Consistencia:** usar `SqlTransaction` en el registro de préstamos, devoluciones y eliminación de préstamos para que el cambio de estado y de existencias sea atómico.
+- **Validaciones:** validar el formato del correo y la fecha de devolución en la aplicación, verificar duplicados antes de insertar y mostrar mensajes más claros que el error de la base de datos; permitir teléfono opcional, como en la base de datos.
+- **Búsqueda:** ampliar la búsqueda de libros por título o autor.
 - **Futuras mejoras:** incorporar autenticación con roles (administrador/bibliotecario), cálculo de multas por retraso, reservas de libros y soporte para varios autores por libro (tabla intermedia `LibroAutor`).
-- **Seguridad:** no almacenar credenciales en el código; usar autenticación de Windows o variables de configuración, y mantener consultas parametrizadas.
+- **Seguridad:** el proyecto usa autenticación de Windows (no guarda contraseñas); se recomienda mover la cadena de conexión a un archivo de configuración y mantener las consultas parametrizadas.
 - **Mantenimiento:** realizar copias de seguridad periódicas de la base de datos y mantener el repositorio con commits frecuentes y descriptivos.
 - **Nuevas funcionalidades:** exportar reportes a PDF/Excel, agregar gráficos y alertas de préstamos vencidos.
 - **Calidad:** agregar pruebas unitarias a la capa de lógica de negocio.
@@ -1043,32 +986,39 @@ Silberschatz, A., Korth, H. F., & Sudarshan, S. (2019). *Fundamentos de bases de
 
 ## Anexo A. Repositorio GitHub
 
-**Repositorio:** [Enlace al repositorio]
+**Repositorio:** https://github.com/lauragonzalezcassti-art/AcaBiblioteca
 
 Estructura sugerida:
 
+Estructura actual del repositorio:
+
 ```text
-/Biblioteca
- ├── src/                 (proyecto de Visual Studio)
- ├── database/
- │    └── BibliotecaDB.sql
- ├── docs/
- │    └── Documento_Sistema_Gestion_Biblioteca.md
- ├── capturas/
- └── README.md
+/AcaBiblioteca
+ ├── AcaBiblioteca/                (solución de Visual Studio, .slnx)
+ │    └── AcaBiblioteca/           (proyecto WinForms net10.0-windows)
+ │         ├── Datos/Conexion.cs
+ │         ├── FrmPrincipal, FrmInicio, FrmLibros, FrmAutores,
+ │         │   FrmEditoriales, FrmUsuarios, FrmPrestamos, FrmReportes
+ │         ├── Program.cs
+ │         └── Resources/
+ ├── Documentacion.md
+ ├── .gitignore
+ └── .gitattributes
 ```
+
+Pendiente de agregar al repositorio: carpeta `database/` con el script SQL (Anexo B), carpeta `capturas/` y `README.md`.
 
 ## Anexo B. Script de base de datos
 
-**Archivo:** `BibliotecaDB.sql`
+**Archivo:** `database/AcaBiblioteca.sql` *(agregar al repositorio)*
 
 ```sql
 -- =====================================================
 -- Sistema de Gestión de Biblioteca - SQL Server
 -- =====================================================
-CREATE DATABASE BibliotecaDB;
+CREATE DATABASE AcaBiblioteca;
 GO
-USE BibliotecaDB;
+USE AcaBiblioteca;
 GO
 
 -- ---------- TABLAS ----------
@@ -1160,33 +1110,20 @@ Insertar capturas que evidencien:
 
 ## Anexo D. Otras evidencias
 
-[Agregar cualquier evidencia adicional relevante.]
+Capturas de la aplicación en ejecución y de la base de datos en SSMS (tablas y datos de prueba).
 
 ---
 
 # LISTA DE VERIFICACIÓN ANTES DE ENTREGAR
 
-- [ ] Portada y contraportada con datos reales.
-- [ ] Introducción y objetivos.
-- [ ] Tabla de contenido y numeración de páginas (al exportar).
-- [ ] Planteamiento del problema y requerimientos.
-- [ ] Casos de uso y diagrama de casos de uso.
-- [ ] Diagrama de clases (ajustado a su código real).
-- [ ] Modelo entidad-relación (coincide con el script SQL).
-- [ ] Diccionario de datos (coincide con el script SQL).
-- [ ] Arquitectura del sistema.
-- [ ] Explicación de cada módulo (solo los implementados).
-- [ ] Descripción de la conexión con SQL Server.
-- [ ] Capturas de pantalla reales.
-- [ ] Pruebas de funcionamiento con resultados reales.
-- [ ] Conclusiones, recomendaciones y referencias APA.
-- [ ] Código fuente completo (proyecto de Visual Studio).
-- [ ] Script SQL con datos de prueba.
-- [ ] Repositorio GitHub con README.md y commits.
-- [ ] Eliminados todos los textos entre `[corchetes]`.
-
----
-
-## NOTA PARA EL ESTUDIANTE
-
-Este documento debe ser coherente con el código fuente, la base de datos, el MER, el diagrama de clases, los casos de uso, la arquitectura y las pruebas realizadas. **No se deben documentar funcionalidades que no hayan sido implementadas.**
+- [x] Portada y contraportada con datos reales.
+- [x] Introducción, objetivos, planteamiento, requerimientos y casos de uso.
+- [x] Diagrama de clases, MER y diccionario de datos ajustados al código y al script.
+- [x] Arquitectura, módulos y conexión descritos según el código real.
+- [ ] Capturas de pantalla reales en `capturas/` (sección 12).
+- [ ] Resultados reales de las pruebas: columnas «Resultado obtenido» y «Estado» (sección 13).
+- [ ] Dificultades reales en las conclusiones (sección 14, punto 5).
+- [ ] Script SQL (`database/AcaBiblioteca.sql`) y `README.md` subidos al repositorio.
+- [ ] Capturas de commits de Git y GitHub (Anexo C).
+- [ ] Referencias: dejar solo las fuentes consultadas.
+- [ ] Numeración de páginas al exportar a PDF/Word.
